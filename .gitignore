@@ -1,0 +1,48 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Xcode
+build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+*.xccheckout
+*.moved-aside
+*.xcscmblueprint
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# CocoaPods (if added later)
+Pods/
+*.xcworkspace
+
+# Carthage (if added later)
+Carthage/Build/
+
+# Fastlane (if added later)
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Logs
+*.log
+
+# App-specific artifacts
+versions.env
+*.zip
+
+# Firebase/Secrets (keep out of git)
+# GoogleService-Info.plist
+
+# IDEs
+.idea/
+.vscode/
+
+# Temporary
+*.tmp
+*.swp

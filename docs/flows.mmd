@@ -1,0 +1,39 @@
+%% Timbrz — Key user flows (Mermaid)
+flowchart LR
+  subgraph Onboarding
+    O1[Launch] --> O2[Brand intro]
+    O2 --> O3{Sign in?}
+    O3 -->|Yes| O4[Auth (Apple/Google/Email)]
+    O3 -->|Guest| O5[Continue as guest]
+    O4 --> O6[Location permission]
+    O5 --> O6
+    O6 --> O7[Notification opt-in]
+    O7 --> O8[Choose interests]
+    O8 --> E1[Explore]
+  end
+
+  subgraph Explore+Filter
+    E1 --> E2[Search pill]
+    E2 --> E3[Viewport geoquery]
+    E3 --> E4{Results?}
+    E4 -->|Yes| E5[Clustered pins]
+    E5 --> E6[Tap marker -> half sheet]
+    E6 --> E7[Swipe up full sheet]
+    E4 -->|No| E8[Empty/offline state]
+    E1 --> F1[Open Filters]
+    F1 --> F2[Apply facets]
+    F2 --> E3
+  end
+
+  subgraph Save & Alerts
+    E7 --> S1[Save listing]
+    F2 --> S2[Save search]
+    S2 --> S3[FCM alert when match]
+  end
+
+  subgraph Create Listing
+    C1[Create tab] --> C2[Wizard steps]
+    C2 --> C3[Preview]
+    C3 --> C4[Publish]
+    C4 --> C5[Dashboard]
+  end

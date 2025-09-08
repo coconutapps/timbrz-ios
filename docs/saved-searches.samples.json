@@ -1,0 +1,63 @@
+[
+  {
+    "id": "ss-lake-straw-10mi",
+    "name": "Lakefront Straw-bale near Trails",
+    "geometry": { "type": "radius", "center": {"lat": 44.0582, "lng": -121.3153}, "miles": 10 },
+    "filters": {
+      "outdoors.water": ["lakefront"],
+      "types.buildMaterials": ["straw-bale"],
+      "activities": ["hiking", "mtb"],
+      "price": {"max": 650000}
+    },
+    "notify": { "push": true, "email": false }
+  },
+  {
+    "id": "ss-ski-aframe",
+    "name": "A-frames near Ski Lifts",
+    "geometry": { "type": "polygon", "points": [
+      {"lat": 39.65, "lng": -106.6}, {"lat": 39.4, "lng": -106.1}, {"lat": 39.9, "lng": -105.9}
+    ] },
+    "filters": {
+      "types.propertyType": ["a-frame"],
+      "outdoors.activities": ["downhill-ski"],
+      "price": {"min": 300000, "max": 1200000 }
+    },
+    "notify": { "push": true, "email": true }
+  },
+  {
+    "id": "ss-offgrid-fiber",
+    "name": "Off-grid with Fiber",
+    "geometry": { "type": "radius", "center": {"lat": 47.608, "lng": -122.335}, "miles": 50 },
+    "filters": {
+      "offgrid.power": ["solar"],
+      "offgrid.connectivity": ["fiber"],
+      "acres": {"min": 2 }
+    },
+    "notify": { "push": true, "email": false }
+  },
+  {
+    "id": "ss-river-timber",
+    "name": "Riverfront Timbered Lots",
+    "geometry": { "type": "polygon", "points": [
+      {"lat": 45.6, "lng": -123.2}, {"lat": 45.9, "lng": -122.2}, {"lat": 45.1, "lng": -122.6}
+    ] },
+    "filters": {
+      "outdoors.water": ["riverfront"],
+      "outdoors.terrain": ["timbered"],
+      "lot": {"minAcres": 1, "maxAcres": 20}
+    },
+    "notify": { "push": true, "email": true }
+  },
+  {
+    "id": "ss-starlink-alpine",
+    "name": "Starlink-friendly Alpine Cabins",
+    "geometry": { "type": "radius", "center": {"lat": 40.7608, "lng": -111.8910}, "miles": 75 },
+    "filters": {
+      "types.propertyType": ["cabin"],
+      "outdoors.terrain": ["alpine"],
+      "offgrid.connectivity": ["starlink-ok"],
+      "beds": {"min": 2 }
+    },
+    "notify": { "push": true, "email": false }
+  }
+]
