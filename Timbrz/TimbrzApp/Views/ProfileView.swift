@@ -3,6 +3,11 @@ import SwiftUI
 struct ProfileView: View {
     @State private var name: String = "Alex Timber"
     @State private var role: String = "buyer"
+    private var versionBuild: String {
+        let v = (Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String) ?? "1.0"
+        let b = (Bundle.main.infoDictionary?["CFBundleVersion"] as? String) ?? "1"
+        return "v\(v) (\(b))"
+    }
 
     var body: some View {
         NavigationStack {
@@ -33,6 +38,19 @@ struct ProfileView: View {
                 }
             }
             .navigationTitle("Profile")
+            .safeAreaInset(edge: .bottom) {
+                HStack(spacing: 8) {
+                    Image("AppLogo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 16, height: 16)
+                        .accessibilityHidden(true)
+                    Text("Timbrz \(versionBuild)")
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+                .padding(.vertical, 8)
+            }
         }
     }
 }

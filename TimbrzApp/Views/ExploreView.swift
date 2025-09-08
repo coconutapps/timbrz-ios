@@ -102,7 +102,7 @@ struct ExploreView: View {
         .overlay(alignment: .bottom) {
             if !searchFocused { bottomResultsSheet }
         }
-        .onChange(of: searchFocused) { focused in
+        .onChange(of: searchFocused) { _, focused in
             if !focused {
                 withAnimation(.easeInOut(duration: 0.2)) { sheetHeight = UIScreen.main.bounds.height * 0.40 }
             }

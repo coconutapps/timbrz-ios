@@ -214,7 +214,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 77A12BD12E6D52F80005B82D /* Build configuration list for PBXNativeTarget "Timbrz" */;
 			buildPhases = (
-				77C0DE1A2E6F000100000001 /* Run Script: increment build number */,
+				77B1C8762E6E8E9B00297073 /* Increment Build Number */,
 				77A12BAC2E6D52F60005B82D /* Sources */,
 				77A12BAD2E6D52F60005B82D /* Frameworks */,
 				77A12BAE2E6D52F60005B82D /* Resources */,
@@ -347,6 +347,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		77B1C8762E6E8E9B00297073 /* Increment Build Number */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Timbrz-Info.plist",
+				"$(SRCROOT)/../increment_build_number.sh",
+			);
+			name = "Increment Build Number";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/versions.env",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "/bin/bash \"$SRCROOT/../increment_build_number.sh\"\n";
+		};
 		77C0DE1A2E6F000100000001 /* Run Script: increment build number */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -363,8 +385,8 @@
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$SRCROOT/increment_build_number.sh\"\n";
+			shellPath = /bin/bash;
+			shellScript = "\"$SRCROOT/../increment_build_number.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -552,8 +574,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8S5QB28R4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Timbrz-Info.plist";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "../Timbrz-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -581,8 +603,8 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = V8S5QB28R4;
 				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "Timbrz-Info.plist";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "../Timbrz-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
