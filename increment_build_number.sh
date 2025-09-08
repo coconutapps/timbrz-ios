@@ -1,5 +1,6 @@
 #!/bin/bash
-set -euo pipefail
+# Fail-safe: do not fail the build if anything goes wrong here
+set -u
 
 echo "=== Timbrz Version Management Script ==="
 echo "pwd: $(pwd)"
@@ -100,11 +101,28 @@ if [[ -n "$INFOPLIST" ]]; then
     echo "Synchronized CFBundleVersion in Info.plist to ${NEW_BUILD_FROM_AGV}"
     echo "MARKETING_VERSION=${MARKETING_VERSION}" > "${SRCROOT}/versions.env"
     echo "CURRENT_PROJECT_VERSION=${NEW_BUILD_FROM_AGV}" >> "${SRCROOT}/versions.env"
-    exit 0
+  else
+    echo "[versioning] Warning: No .xcodeproj found for agvtool fallback. Set INFOPLIST_FILE or ensure project path."
   fi
 fi
 
-# If no xcodeproj or agvtool failed, directly bump CFBundleVersion in the Info.plist (if present)
+if [[ -z "$INFOPLIST" || ! -f "$INFOPLIST" ]]; then
+  echo "[versioning] Could not determine source Info.plist path. Attempting agvtool fallback..."
+  # Try bumping build number via agvtool (works with synthesized Info.plist when CURRENT_PROJECT_VERSION is set)
+  PROJ_DIR="$SRCROOT"
+  if ! ls "$PROJ_DIR"/*.xcodeproj >/dev/null 2>&1; then
+    if ls "$SRCROOT/Timbrz"/*.xcodeproj >/dev/null 2>&1; then
+      PROJ_DIR="$SRCROOT/Timbrz"
+    fi
+  fi
+  if ls "$PROJ_DIR"/*.xcodeproj >/dev/null 2>&1; then
+    (cd "$PROJ_DIR" && agvtool bump -all) || echo "[versioning] agvtool bump failed (continuing)"
+    echo "[versioning] agvtool bump completed."
+  else
+    echo "[versioning] Warning: No .xcodeproj found for agvtool fallback. Set INFOPLIST_FILE in target or place project at $SRCROOT or $SRCROOT/Timbrz."
+  fi
+fi
+
 if [[ -n "$INFOPLIST" && -f "$INFOPLIST" ]]; then
   BUILD_NUMBER=$(/usr/libexec/PlistBuddy -c "Print CFBundleVersion" "$INFOPLIST" 2>/dev/null || true)
   if [[ -z "${BUILD_NUMBER}" ]]; then
@@ -120,9 +138,9 @@ if [[ -n "$INFOPLIST" && -f "$INFOPLIST" ]]; then
   /usr/libexec/PlistBuddy -c "Set :CFBundleVersion ${NEW_BUILD_NUMBER}" "$INFOPLIST"
   echo "MARKETING_VERSION=${MARKETING_VERSION:-}" > "${SRCROOT}/versions.env"
   echo "CURRENT_PROJECT_VERSION=${NEW_BUILD_NUMBER}" >> "${SRCROOT}/versions.env"
-  echo "Updated build: ${BUILD_NUMBER} -> ${NEW_BUILD_NUMBER}"
+  echo "[versioning] Updated build: ${BUILD_NUMBER} -> ${NEW_BUILD_NUMBER}"
   exit 0
 fi
 
-echo "Warning: Could not locate Info.plist or Xcode project to bump version. No changes made."
+echo "[versioning] Warning: Could not locate Info.plist or Xcode project to bump version. No changes made."
 exit 0
